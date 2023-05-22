@@ -1,6 +1,5 @@
 from flask import Flask, redirect, render_template, request, session, url_for, flash
 app = Flask(__name__)
-import pandas as pd
 
 
 users = {}
