@@ -12,9 +12,18 @@
         <div class="logo">
             <img src="/static/img/logo.jpg" alt="Website Logo">
         </div>
-        <nav id="nav"></nav>
+        <br>
+        <h2>Specification Form For Body Building</h2>
     </header>
-    <h2>Specification Form For Body Building</h2>
+    <div class="navbar">
+        <div class="navbar-sectionl">
+            <p>Total: <span id="total">0</span></p>
+        </div>
+        <div class="navbar-sectionr">
+            <span>{{ username }}</span> &nbsp;
+                <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+            </div>
+    </div>
     <form>
         <!--Client Info-->
         <div class=form1>
@@ -96,192 +105,193 @@
             <div class="option">
                 <label for="model">Model:</label>
 
-                <input type="radio" id="Standard" name="model" value="1140000" checked>
+                <input type="radio" id="Standard" name="model" value="1140000" checked onchange="calculateTotal();">
                 <label for="Standard">Standard</label>
 
-                <input type="radio" name="model" id="custommodel">
+                <input type="radio" name="model" id="custommodel" onchange="calculateTotal();">
                 <label for="custommodel">Custom Model:</label>
 
                 <input type="text" id="customModelLabelInput" placeholder="Name">
-                <input type="text" id="customModelValueInput" placeholder="Price">
+                <input type="number" id="customPrice" placeholder="Price" onchange="calculateTotal();" />
 
                 <div>
                     <strong>Base Price:</strong>
-                    <span id="selectedValue">1140000</span>
+                    <option id="basePrice" value="1140000" onchange="calculateTotal()">1140000</option>
+                    <!-- <span id="basePrice"></span> -->
                 </div>
 
+                <script>
+                    var customModelLabelInput = document.getElementById("customModelLabelInput");
+                    var customPrice = document.getElementById("customPrice");
+
+                    function updateValue() {
+                        var basePrice;
+                        var selectedLabel;
+
+                        var standardRadio = document.getElementById("Standard");
+                        var customModelRadio = document.getElementById("custommodel");
+
+                        if (standardRadio.checked) {
+                            selectedLabel = standardRadio.nextSibling.textContent.trim();
+                            basePrice = standardRadio.value;
+                        } else if (customModelRadio.checked) {
+                            selectedLabel = customModelLabelInput.value;
+                            basePrice = customPrice.value;
+                        }
+
+                        console.log("Selected label: " + selectedLabel);
+                        console.log("Selected value: " + basePrice);
+
+                        // Display the selected label and value
+                        var selectedValueElement = document.getElementById("basePrice");
+                        selectedValueElement.textContent = basePrice;
+                    }
+
+                    document.getElementById("custommodel").addEventListener("change", updateValue);
+                    document.getElementById("Standard").addEventListener("change", updateValue);
+                    customModelLabelInput.addEventListener("input", updateValue);
+                    customPrice.addEventListener("input", updateValue);
+                </script>
             </div>
         </div>
-        <script>
-            var customModelLabelInput = document.getElementById("customModelLabelInput");
-            var customModelValueInput = document.getElementById("customModelValueInput");
-
-            function updateValue() {
-                var selectedValue;
-                var selectedLabel;
-
-                var standardRadio = document.getElementById("Standard");
-                var customModelRadio = document.getElementById("custommodel");
-
-                if (standardRadio.checked) {
-                    selectedLabel = standardRadio.nextSibling.textContent.trim();
-                    selectedValue = standardRadio.value;
-                } else if (customModelRadio.checked) {
-                    selectedLabel = customModelLabelInput.value;
-                    selectedValue = customModelValueInput.value;
-                }
-
-                console.log("Selected label: " + selectedLabel);
-                console.log("Selected value: " + selectedValue);
-
-                // Display the selected label and value
-                var selectedValueElement = document.getElementById("selectedValue");
-                selectedValueElement.textContent = selectedValue;
-            }
-
-            document.getElementById("custommodel").addEventListener("change", updateValue);
-            document.getElementById("Standard").addEventListener("change", updateValue);
-            customModelLabelInput.addEventListener("input", updateValue);
-            customModelValueInput.addEventListener("input", updateValue);
-        </script>
         <!--Structure Info-->
         <div class=form1>
             <h3>Structure</h3>
             <table>
 
                 <tr>
-                    <td>W.B</td>
+                    <td>W.B<span id="bp"></span></td>
                     <td>
-                        <select id="item1Select" onchange="updatePrice('item1Select', 'item1Price')">
+                        <select id="item1Select" onchange=" calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">222"</option>
-                            <option value="0">210"</option>
+                            <option value="20">222"</option>
+                            <option value="30">210"</option>
                         </select>
                     </td>
-                    <td id="item1Price">Cost</td>
+                    <td id="item1Price">0</td>
                 </tr>
                 <tr>
-                    <td>Body Width</td>
+                    <td>Body Width<span id="selectedNaa1"></span></td>
                     <td>
-                        <select id="item2Select" onchange="updatePrice('item2Select', 'item2Price')">
+                        <select id="item2Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">8'6"</option>
-                            <option value="0">8'8"</option>
+                            <option value="50">8'6"</option>
+                            <option value="60">8'8"</option>
                         </select>
                     </td>
-                    <td id="item2Price">Cost</td>
+                    <td id="item2Price">0</td>
                 </tr>
                 <tr>
                     <td>Body Height</td>
                     <td>
-                        <select id="item3Select" onchange="updatePrice('item3Select', 'item3Price')">
+                        <select id="item3Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">6'3"</option>
                         </select>
                     </td>
-                    <td id="item3Price">Cost</td>
+                    <td id="item3Price">0</td>
                 </tr>
                 <tr>
                     <td>Entrance</td>
                     <td>
-                        <select id="item4Select" onchange="updatePrice('item4Select', 'item4Price')">
+                        <select id="item4Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Rear</option>
                         </select>
                     </td>
-                    <td id="item4Price">Cost</td>
+                    <td id="item4Price">0</td>
                 </tr>
                 <tr>
                     <td>Exit Position</td>
                     <td>
-                        <select id="item5Select" onchange="updatePrice('item5Select', 'item5Price')">
+                        <select id="item5Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">In between wheel</option>
                             <option value="0">Extreme front</option>
                         </select>
                     </td>
-                    <td id="item5Price">Cost</td>
+                    <td id="item5Price">0</td>
                 </tr>
                 <tr>
                     <td>Channel</td>
                     <td>
-                        <select id="item6Select" onchange="updatePrice('item6Select', 'item6Price')">
+                        <select id="item6Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">4x2 channel 4" bed</option>
                             <option value="0">6" bed</option>
                         </select>
                     </td>
-                    <td id="item6Price">Cost</td>
+                    <td id="item6Price">0</td>
                 </tr>
                 <tr>
                     <td>Body Angle</td>
                     <td>
-                        <select id="item7Select" onchange="updatePrice('item7Select', 'item7Price')">
+                        <select id="item7Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Sq tube</option>
                         </select>
                     </td>
-                    <td id="item7Price">Cost</td>
+                    <td id="item7Price">0</td>
                 </tr>
                 <tr>
                     <td>Template Size</td>
                     <td>
-                        <select id="item8Select" onchange="updatePrice('item8Select', 'item8Price')">
+                        <select id="item8Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Moffussil</option>
                             <option value="0">Town</option>
                             <option value="0">College bus</option>
                         </select>
                     </td>
-                    <td id="item8Price">Cost</td>
+                    <td id="item8Price">0</td>
                 </tr>
                 <tr>
                     <td>Foot Step Type</td>
                     <td>
-                        <select id="item9Select" onchange="updatePrice('item9Select', 'item9Price')">
+                        <select id="item9Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">3 step, STD</option>
                             <option value="0">3 step, JK</option>
                             <option value="0">3 step, Balasakthi</option>
                         </select>
                     </td>
-                    <td id="item9Price">Cost</td>
+                    <td id="item9Price">0</td>
                 </tr>
                 <tr>
                     <td>3 Pass Seat Width</td>
                     <td>
-                        <select id="item10Select" onchange="updatePrice('item10Select', 'item10Price')">
+                        <select id="item10Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">1200mm / 45"</option>
                         </select>
                     </td>
-                    <td id="item10Price">Cost</td>
+                    <td id="item10Price">0</td>
                 </tr>
                 <tr>
                     <td>2 Pass Seat Width</td>
                     <td>
-                        <select id="item11Select" onchange="updatePrice('item11Select', 'item11Price')">
+                        <select id="item11Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">800mm / 30 "</option>
                         </select>
                     </td>
-                    <td id="item11Price">Cost</td>
+                    <td id="item11Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Body Sheet</td>
                     <td>
-                        <select id="item12Select" onchange="updatePrice('item12Select', 'item12Price')">
+                        <select id="item12Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">GI</option>
                             <option value="0">Aluminum</option>
                         </select>
                     </td>
-                    <td id="item12Price">Cost</td>
+                    <td id="item12Price">0</td>
                 </tr>
                 <tr>
                     <td>Front Glass</td>
                     <td>
-                        <select id="item13Select" onchange="updatePrice('item13Select', 'item13Price')">
+                        <select id="item13Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">61 "</option>
                             <option value="0">64 "</option>
@@ -289,138 +299,138 @@
                             <option value="0">Laminated</option>
                         </select>
                     </td>
-                    <td id="item13Price">Cost</td>
+                    <td id="item13Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear Glass</td>
                     <td>
-                        <select id="item14Select" onchange="updatePrice('item14Select', 'item14Price')">
+                        <select id="item14Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Job No.</option>
                             <option value="0">As per photo</option>
                         </select>
                     </td>
-                    <td id="item14Price">Cost</td>
+                    <td id="item14Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Body Type</td>
                     <td>
-                        <select id="item15Select" onchange="updatePrice('item15Select', 'item15Price')">
+                        <select id="item15Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Mazda</option>
                         </select>
                     </td>
-                    <td id="item15Price">Cost</td>
+                    <td id="item15Price">0</td>
                 </tr>
                 <tr>
                     <td>Body Angle Type</td>
                     <td>
-                        <select id="item16Select" onchange="updatePrice('item16Select', 'item16Price')">
+                        <select id="item16Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">BSBS</option>
                         </select>
                     </td>
-                    <td id="item16Price">Cost</td>
+                    <td id="item16Price">0</td>
                 </tr>
                 <tr>
                     <td>Engine Platform</td>
                     <td>
-                        <select id="item17Select" onchange="updatePrice('item17Select', 'item17Price')">
+                        <select id="item17Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">OE</option>
                         </select>
                     </td>
-                    <td id="item17Price">Cost</td>
+                    <td id="item17Price">0</td>
                 </tr>
                 <tr>
                     <td>Battery Box</td>
                     <td>
-                        <select id="item18Select" onchange="updatePrice('item18Select', 'item18Price')">
+                        <select id="item18Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Side body</option>
                             <option value="0">Under the seat</option>
                         </select>
                     </td>
-                    <td id="item18Price">Cost</td>
+                    <td id="item18Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Mudguard</td>
                     <td>
-                        <select id="item19Select" onchange="updatePrice('item19Select', 'item19Price')">
+                        <select id="item19Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Square</option>
                             <option value="0">Round</option>
                         </select>
                     </td>
-                    <td id="item19Price">Cost</td>
+                    <td id="item19Price">0</td>
                 </tr>
                 <tr>
                     <td>Driver Door Type</td>
                     <td>
-                        <select id="item20Select" onchange="updatePrice('item20Select', 'item20Price')">
+                        <select id="item20Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Half</option>
                             <option value="0">Full</option>
                         </select>
                     </td>
-                    <td id="item20Price">Cost</td>
+                    <td id="item20Price">0</td>
                 </tr>
                 <tr>
                     <td>Dickey Position</td>
                     <td>
-                        <select id="item21Select" onchange="updatePrice('item21Select', 'item21Price')">
+                        <select id="item21Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Left side</option>
                             <option value="0">Right side</option>
                             <option value="0">Rear</option>
                         </select>
                     </td>
-                    <td id="item21Price">Cost</td>
+                    <td id="item21Price">0</td>
                 </tr>
                 <tr>
                     <td>Stepney Carrier</td>
                     <td>
-                        <select id="item22Select" onchange="updatePrice('item22Select', 'item22Price')">
+                        <select id="item22Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Left side</option>
                             <option value="0">Right side</option>
                             <option value="0">Under the Chassis</option>
                         </select>
                     </td>
-                    <td id="item22Price">Cost</td>
+                    <td id="item22Price">0</td>
                 </tr>
                 <tr>
                     <td>Emergency Door</td>
                     <td>
-                        <select id="item23Select" onchange="updatePrice('item23Select', 'item23Price')">
+                        <select id="item23Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                         </select>
                     </td>
-                    <td id="item23Price">Cost</td>
+                    <td id="item23Price">0</td>
                 </tr>
                 <tr>
                     <td>Flooring Plywood</td>
                     <td>
-                        <select id="item24Select" onchange="updatePrice('item24Select', 'item24Price')">
+                        <select id="item24Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">12mm plywood</option>
                             <option value="18000">12mm plywood + matt</option>
                             <option value="50000">3mm Aluminum chequard sheet</option>
                         </select>
                     </td>
-                    <td id="item24Price">Cost</td>
+                    <td id="item24Price">0</td>
                 </tr>
                 <tr>
                     <td>Ceiling</td>
                     <td>
-                        <select id="item25Select" onchange="updatePrice('item25Select', 'item25Price')">
+                        <select id="item25Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="8000">ACP</option>
                             <option value="0">Mica</option>
                         </select>
                     </td>
-                    <td id="item25Price">Cost</td>
+                    <td id="item25Price">0</td>
                 </tr>
             </table>
         </div>
@@ -431,34 +441,34 @@
                 <tr>
                     <td>Ceiling Type</td>
                     <td>
-                        <select id="item26Select" onchange="updatePrice('item26Select', 'item26Price')">
+                        <select id="item26Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">1.5"</option>
                         </select>
                     </td>
-                    <td id="item26Price">Cost</td>
+                    <td id="item26Price">0</td>
                 </tr>
                 <tr>
                     <td>Voice Speaker</td>
                     <td>
-                        <select id="item27Select" onchange="updatePrice('item27Select', 'item27Price')">
+                        <select id="item27Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item27Price">Cost</td>
+                    <td id="item27Price">0</td>
                 </tr>
                 <tr>
                     <td>Name Board</td>
                     <td>
-                        <select id="item28Select" onchange="updatePrice('item28Select', 'item28Price')">
+                        <select id="item28Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item28Price">Cost</td>
+                    <td id="item28Price">0</td>
                 </tr>
             </table>
         </div>
@@ -469,70 +479,70 @@
                 <tr>
                     <td>Front Glass & Grill</td>
                     <td>
-                        <select id="item29Select" onchange="updatePrice('item29Select', 'item29Price')">
+                        <select id="item29Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">61"</option>
                             <option value="0">64"</option>
                             <option value="0">68" Volvo Laminated glass</option>
                         </select>
                     </td>
-                    <td id="item29Price">Cost</td>
+                    <td id="item29Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear Glass & Grill</td>
                     <td>
-                        <select id="item30Select" onchange="updatePrice('item30Select', 'item30Price')">
+                        <select id="item30Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Job No.</option>
                             <option value="0">As per photo</option>
                         </select>
                     </td>
-                    <td id="item30Price">Cost</td>
+                    <td id="item30Price">0</td>
                 </tr>
                 <tr>
                     <td>Volvo Mirror</td>
                     <td>
-                        <select id="item31Select" onchange="updatePrice('item31Select', 'item31Price')">
+                        <select id="item31Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item31Price">Cost</td>
+                    <td id="item31Price">0</td>
                 </tr>
                 <tr>
                     <td>Bonnet</td>
                     <td>
-                        <select id="item32Select" onchange="updatePrice('item32Select', 'item32Price')">
+                        <select id="item32Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">OE</option>
                             <option value="0">Sheet metal</option>
                             <option value="0">Angle type</option>
                         </select>
                     </td>
-                    <td id="item32Price">Cost</td>
+                    <td id="item32Price">0</td>
                 </tr>
                 <tr>
                     <td>Dash Board Type</td>
                     <td>
                         <!-- Add appropriate options for Dash Board Type -->
-                        <select id="item33Select" onchange="updatePrice('item33Select', 'item33Price')">
+                        <select id="item33Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <!-- Add your options here -->
                         </select>
                     </td>
-                    <td id="item33Price">Cost</td>
+                    <td id="item33Price">0</td>
                 </tr>
                 <tr>
                     <td>Lifting Door</td>
                     <td>
-                        <select id="item34Select" onchange="updatePrice('item34Select', 'item34Price')">
+                        <select id="item34Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item34Price">Cost</td>
+                    <td id="item34Price">0</td>
                 </tr>
             </table>
         </div>
@@ -543,23 +553,23 @@
                 <tr>
                     <td>Body Sheet</td>
                     <td>
-                        <select id="item35Select" onchange="updatePrice('item35Select', 'item35Price')">
+                        <select id="item35Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">GI</option>
                             <option value="20000">Aluminum</option>
                         </select>
                     </td>
-                    <td id="item35Price">Cost</td>
+                    <td id="item35Price">0</td>
                 </tr>
                 <tr>
                     <td>Vangu Type</td>
                     <td>
-                        <select id="item36Select" onchange="updatePrice('item36Select', 'item36Price')">
+                        <select id="item36Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Velmurugan type</option>
                         </select>
                     </td>
-                    <td id="item36Price">Cost</td>
+                    <td id="item36Price">0</td>
                 </tr>
             </table>
             <table>
@@ -568,99 +578,99 @@
                 <tr>
                     <td>Side Planks</td>
                     <td>
-                        <select id="item37Select" onchange="updatePrice('item37Select', 'item37Price')">
+                        <select id="item37Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">AC</option>
                             <option value="0">BSBS</option>
                             <option value="0">Sutlej</option>
                         </select>
                     </td>
-                    <td id="item37Price">Cost</td>
+                    <td id="item37Price">0</td>
                 </tr>
                 <tr>
                     <td>Length</td>
                     <td>
-                        <select id="item38Select" onchange="updatePrice('item38Select', 'item38Price')">
+                        <select id="item38Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">3/4</option>
                             <option value="0">Full length</option>
                         </select>
                     </td>
-                    <td id="item38Price">Cost</td>
+                    <td id="item38Price">0</td>
                 </tr>
                 <tr>
                     <td>Name board</td>
                     <td>
-                        <select id="item39Select" onchange="updatePrice('item39Select', 'item39Price')">
+                        <select id="item39Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item39Price">Cost</td>
+                    <td id="item39Price">0</td>
                 </tr>
                 <tr>
                     <td>L. C. Slide</td>
                     <td>
-                        <select id="item40Select" onchange="updatePrice('item40Select', 'item40Price')">
+                        <select id="item40Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">1 no</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item40Price">Cost</td>
+                    <td id="item40Price">0</td>
                 </tr>
                 <tr>
                     <td>Ladder</td>
                     <td>
-                        <select id="item41Select" onchange="updatePrice('item41Select', 'item41Price')">
+                        <select id="item41Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">2 no</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item41Price">Cost</td>
+                    <td id="item41Price">0</td>
                 </tr>
                 <tr>
                     <td>Inner Mudguard</td>
                     <td>
-                        <select id="item42Select" onchange="updatePrice('item42Select', 'item42Price')">
+                        <select id="item42Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Sq</option>
                         </select>
                     </td>
-                    <td id="item42Price">Cost</td>
+                    <td id="item42Price">0</td>
                 </tr>
                 <tr>
                     <td>Hanging Mudguard</td>
                     <td>
-                        <select id="item43Select" onchange="updatePrice('item43Select', 'item43Price')">
+                        <select id="item43Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">GI</option>
                         </select>
                     </td>
-                    <td id="item43Price">Cost</td>
+                    <td id="item43Price">0</td>
                 </tr>
                 <tr>
                     <td>Foot Step</td>
                     <td>
-                        <select id="item44Select" onchange="updatePrice('item44Select', 'item44Price')">
+                        <select id="item44Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                         </select>
                     </td>
-                    <td id="item44Price">Cost</td>
+                    <td id="item44Price">0</td>
                 </tr>
                 <tr>
                     <td>Top Ventilator</td>
                     <td>
-                        <select id="item45Select" onchange="updatePrice('item45Select', 'item45Price')">
+                        <select id="item45Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item45Price">Cost</td>
+                    <td id="item45Price">0</td>
                 </tr>
             </table>
         </div>
@@ -671,68 +681,68 @@
                 <tr>
                     <td>Driver Door</td>
                     <td>
-                        <select id="item46Select" onchange="updatePrice('item46Select', 'item46Price')">
+                        <select id="item46Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item46Price">Cost</td>
+                    <td id="item46Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Dickey Door</td>
                     <td>
-                        <select id="item47Select" onchange="updatePrice('item47Select', 'item47Price')">
+                        <select id="item47Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item47Price">Cost</td>
+                    <td id="item47Price">0</td>
                 </tr>
                 <tr>
                     <td>Right Side Emergency Door</td>
                     <td>
-                        <select id="item48Select" onchange="updatePrice('item48Select', 'item48Price')">
+                        <select id="item48Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item48Price">Cost</td>
+                    <td id="item48Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear Dickey Door</td>
                     <td>
-                        <select id="item49Select" onchange="updatePrice('item49Select', 'item49Price')">
+                        <select id="item49Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="25000">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item49Price">Cost</td>
+                    <td id="item49Price">0</td>
                 </tr>
                 <tr>
                     <td>Battery Box Door</td>
                     <td>
-                        <select id="item50Select" onchange="updatePrice('item50Select', 'item50Price')">
+                        <select id="item50Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item50Price">Cost</td>
+                    <td id="item50Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Stepney Carrier</td>
                     <td>
-                        <select id="item51Select" onchange="updatePrice('item51Select', 'item51Price')">
+                        <select id="item51Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="7000">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item51Price">Cost</td>
+                    <td id="item51Price">0</td>
                 </tr>
             </table>
         </div>
@@ -743,55 +753,55 @@
                 <tr>
                     <td>Side Quarter Glass</td>
                     <td>
-                        <select id="item52Select" onchange="updatePrice('item52Select', 'item52Price')">
+                        <select id="item52Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Fixing</option>
                         </select>
                     </td>
-                    <td id="item52Price">Cost</td>
+                    <td id="item52Price">0</td>
                 </tr>
                 <tr>
                     <td>Sliding Glass</td>
                     <td>
-                        <select id="item53Select" onchange="updatePrice('item53Select', 'item53Price')">
+                        <select id="item53Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Mazda</option>
                         </select>
                     </td>
-                    <td id="item53Price">Cost</td>
+                    <td id="item53Price">0</td>
                 </tr>
                 <tr>
                     <td>Glass Color</td>
                     <td>
-                        <select id="item54Select" onchange="updatePrice('item54Select', 'item54Price')">
+                        <select id="item54Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Light grey</option>
                             <option value="0">Light green</option>
                             <option value="0">Clear</option>
                         </select>
                     </td>
-                    <td id="item54Price">Cost</td>
+                    <td id="item54Price">0</td>
                 </tr>
                 <tr>
                     <td>Glass Frame Type</td>
                     <td>
-                        <select id="item55Select" onchange="updatePrice('item55Select', 'item55Price')">
+                        <select id="item55Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Powder coat</option>
                             <option value="0">Polish</option>
                         </select>
                     </td>
-                    <td id="item55Price">Cost</td>
+                    <td id="item55Price">0</td>
                 </tr>
                 <tr>
                     <td>Holes</td>
                     <td>
-                        <select id="item56Select" onchange="updatePrice('item56Select', 'item56Price')">
+                        <select id="item56Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">30 x 40</option>
                         </select>
                     </td>
-                    <td id="item56Price">Cost</td>
+                    <td id="item56Price">0</td>
                 </tr>
             </table>
         </div>
@@ -802,64 +812,81 @@
                 <tr>
                     <td>Interior Vangu</td>
                     <td>
-                        <select id="item57Select" onchange="updatePrice('item57Select', 'item57Price')">
+                        <select id="item57Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                         </select>
                     </td>
-                    <td id="item57Price">Cost</td>
+                    <td id="item57Price">0</td>
                 </tr>
                 <tr>
                     <td>Mica Design</td>
                     <td>
-                        <select id="item58Select" onchange="updatePrice('item58Select', 'item58Price')">
+                        <select id="item58Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item58Price">Cost</td>
+                    <td id="item58Price">0</td>
                 </tr>
                 <tr>
                     <td>Seat Angle Mica & Flooring</td>
                     <td>
-                        <select id="item59Select" onchange="updatePrice('item59Select', 'item59Price')">
+                        <select id="item59Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                         </select>
                     </td>
-                    <td id="item59Price">Cost</td>
+                    <td id="item59Price">0</td>
                 </tr>
                 <tr>
                     <td>Dash Board Mica</td>
                     <td>
-                        <select id="item60Select" onchange="updatePrice('item60Select', 'item60Price')">
+                        <select id="item60Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Mica</option>
                             <option value="0">ACP</option>
                         </select>
                     </td>
-                    <td id="item60Price">Cost</td>
+                    <td id="item60Price">0</td>
                 </tr>
                 <tr>
                     <td>Interior Design</td>
                     <td>
-                        <select id="item61Select" onchange="updatePrice('item61Select', 'item61Price')">
+                        <select id="item61Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="20000">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item61Price">Cost</td>
+                    <td id="item61Price">0</td>
                 </tr>
             </table>
         </div>
         <!--Paint Info-->
-        <div class=form1>
+        <div class="form2">
             <h3>Paint</h3>
             <label for="Painting">Painting Cost:</label>
-            <input type="text" id="Painting" name="Painting" required>
+            <input type="number" id="item108Price" name="Painting" oninput="displayCost()" required>
+            <span id="costDisplay">0</span>
         </div>
+
+
+        <script>
+            function displayCost() {
+                var costInput = document.getElementById("item108Price");
+                var costDisplay = document.getElementById("costDisplay");
+                var costValue = costInput.value;
+
+                if (costValue === '') {
+                    costValue = 0;
+                }
+
+                costDisplay.textContent = costValue;
+                calculateTotal();
+            }
+        </script>
         <!--Fitting Info-->
         <div class=form1>
             <h3>Fitting</h3>
@@ -867,7 +894,7 @@
                 <tr>
                     <td>Seat Type</td>
                     <td>
-                        <select id="item62Select" onchange="updatePrice('item62Select', 'item62Price')">
+                        <select id="item62Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">STD</option>
                             <option value="0">School Type</option>
@@ -876,34 +903,34 @@
                             <option value="35000">SK</option>
                         </select>
                     </td>
-                    <td id="item62Price">Cost</td>
+                    <td id="item62Price">0</td>
                 </tr>
                 <tr>
                     <td>3 Pass Width</td>
                     <td>
-                        <select id="item63Select" onchange="updatePrice('item63Select', 'item63Price')">
+                        <select id="item63Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">1200mm</option>
                             <option value="0">45"</option>
                         </select>
                     </td>
-                    <td id="item63Price">Cost</td>
+                    <td id="item63Price">0</td>
                 </tr>
                 <tr>
                     <td>2 Pass Width</td>
                     <td>
-                        <select id="item64Select" onchange="updatePrice('item64Select', 'item64Price')">
+                        <select id="item64Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">800mm</option>
                             <option value="0">30"</option>
                         </select>
                     </td>
-                    <td id="item64Price">Cost</td>
+                    <td id="item64Price">0</td>
                 </tr>
                 <tr>
                     <td>Right 3 Seater</td>
                     <td>
-                        <select id="item65Select" onchange="updatePrice('item65Select', 'item65Price')">
+                        <select id="item65Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
@@ -918,12 +945,12 @@
                             <option value="0">10</option>
                         </select>
                     </td>
-                    <td id="item65Price">Cost</td>
+                    <td id="item65Price">0</td>
                 </tr>
                 <tr>
                     <td>Right 2+1 Seater</td>
                     <td>
-                        <select id="item66Select" onchange="updatePrice('item66Select', 'item66Price')">
+                        <select id="item66Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
@@ -938,12 +965,12 @@
                             <option value="0">10</option>
                         </select>
                     </td>
-                    <td id="item66Price">Cost</td>
+                    <td id="item66Price">0</td>
                 </tr>
                 <tr>
                     <td>Left 2 Seater</td>
                     <td>
-                        <select id="item67Select" onchange="updatePrice('item67Select', 'item67Price')">
+                        <select id="item67Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
@@ -958,12 +985,12 @@
                             <option value="0">10</option>
                         </select>
                     </td>
-                    <td id="item67Price">Cost</td>
+                    <td id="item67Price">0</td>
                 </tr>
                 <tr>
                     <td>Platform 2 Seater</td>
                     <td>
-                        <select id="item68Select" onchange="updatePrice('item68Select', 'item68Price')">
+                        <select id="item68Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
@@ -978,12 +1005,12 @@
                             <option value="0">10</option>
                         </select>
                     </td>
-                    <td id="item68Price">Cost</td>
+                    <td id="item68Price">0</td>
                 </tr>
                 <tr>
                     <td>Platform 1+1 Seater</td>
                     <td>
-                        <select id="item69Select" onchange="updatePrice('item69Select', 'item69Price')">
+                        <select id="item69Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
@@ -998,178 +1025,178 @@
                             <option value="0">10</option>
                         </select>
                     </td>
-                    <td id="item69Price">Cost</td>
+                    <td id="item69Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear 6 Seater</td>
                     <td>
-                        <select id="item70Select" onchange="updatePrice('item70Select', 'item70Price')">
+                        <select id="item70Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">0</option>
                             <option value="0">1</option>
                         </select>
                     </td>
-                    <td id="item70Price">Cost</td>
+                    <td id="item70Price">0</td>
                 </tr>
                 <tr>
                     <td>Backrest</td>
                     <td>
-                        <select id="item71Select" onchange="updatePrice('item71Select', 'item71Price')">
+                        <select id="item71Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                         </select>
                     </td>
-                    <td id="item71Price">Cost</td>
+                    <td id="item71Price">0</td>
                 </tr>
                 <tr>
                     <td>Headrest Cover</td>
                     <td>
-                        <select id="item72Select" onchange="updatePrice('item72Select', 'item72Price')">
+                        <select id="item72Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Full Cover</option>
                             <option value="0">Double Colour</option>
                         </select>
                     </td>
-                    <td id="item72Price">Cost</td>
+                    <td id="item72Price">0</td>
                 </tr>
                 <tr>
                     <td>Pathway Beading</td>
                     <td>
-                        <select id="item73Select" onchange="updatePrice('item73Select', 'item73Price')">
+                        <select id="item73Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item73Price">Cost</td>
+                    <td id="item73Price">0</td>
                 </tr>
                 <tr>
                     <td>Cloth</td>
                     <td>
-                        <select id="item74Select" onchange="updatePrice('item74Select', 'item74Price')">
+                        <select id="item74Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">3D</option>
                             <option value="0">4D</option>
                         </select>
                     </td>
-                    <td id="item74Price">Cost</td>
+                    <td id="item74Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Body Beading</td>
                     <td>
-                        <select id="item75Select" onchange="updatePrice('item75Select', 'item75Price')">
+                        <select id="item75Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Volvo</option>
                         </select>
                     </td>
-                    <td id="item75Price">Cost</td>
+                    <td id="item75Price">0</td>
                 </tr>
                 <tr>
                     <td>Hat Rack</td>
                     <td>
-                        <select id="item76Select" onchange="updatePrice('item76Select', 'item76Price')">
+                        <select id="item76Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Left Side</option>
                             <option value="0">Right Side</option>
                             <option value="8000">Travels Type</option>
                         </select>
                     </td>
-                    <td id="item76Price">Cost</td>
+                    <td id="item76Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear Mirror</td>
                     <td>
-                        <select id="item77Select" onchange="updatePrice('item77Select', 'item77Price')">
+                        <select id="item77Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                         </select>
                     </td>
-                    <td id="item77Price">Cost</td>
+                    <td id="item77Price">0</td>
                 </tr>
                 <tr>
                     <td>Bonnet Partition</td>
                     <td>
-                        <select id="item78Select" onchange="updatePrice('item78Select', 'item78Price')">
+                        <select id="item78Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item78Price">Cost</td>
+                    <td id="item78Price">0</td>
                 </tr>
                 <tr>
                     <td>TV Partition</td>
                     <td>
-                        <select id="item79Select" onchange="updatePrice('item79Select', 'item79Price')">
+                        <select id="item79Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Cabin Only</option>
                         </select>
                     </td>
-                    <td id="item79Price">Cost</td>
+                    <td id="item79Price">0</td>
                 </tr>
                 <tr>
                     <td>IGR</td>
                     <td>
-                        <select id="item80Select" onchange="updatePrice('item80Select', 'item80Price')">
+                        <select id="item80Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">3 Line</option>
                             <option value="0">2 Line</option>
                             <option value="0">1 Line</option>
                         </select>
                     </td>
-                    <td id="item80Price">Cost</td>
+                    <td id="item80Price">0</td>
                 </tr>
                 <tr>
                     <td>Post</td>
                     <td>
-                        <select id="item81Select" onchange="updatePrice('item81Select', 'item81Price')">
+                        <select id="item81Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">10 No</option>
                         </select>
                     </td>
-                    <td id="item81Price">Cost</td>
+                    <td id="item81Price">0</td>
                 </tr>
                 <tr>
                     <td>Window Side Bars</td>
                     <td>
-                        <select id="item82Select" onchange="updatePrice('item82Select', 'item82Price')">
+                        <select id="item82Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">2 Row</option>
                         </select>
                     </td>
-                    <td id="item82Price">Cost</td>
+                    <td id="item82Price">0</td>
                 </tr>
                 <tr>
                     <td>Fitting Material</td>
                     <td>
-                        <select id="item83Select" onchange="updatePrice('item83Select', 'item83Price')">
+                        <select id="item83Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                             <option value="0">Powder Coat</option>
                         </select>
                     </td>
-                    <td id="item83Price">Cost</td>
+                    <td id="item83Price">0</td>
                 </tr>
                 <tr>
                     <td>Footstep Beading</td>
                     <td>
-                        <select id="item84Select" onchange="updatePrice('item84Select', 'item84Price')">
+                        <select id="item84Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Travels</option>
                         </select>
                     </td>
-                    <td id="item84Price">Cost</td>
+                    <td id="item84Price">0</td>
                 </tr>
                 <tr>
                     <td>Wheel Arch</td>
                     <td>
-                        <select id="item85Select" onchange="updatePrice('item85Select', 'item85Price')">
+                        <select id="item85Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
                             <option value="0">FRP</option>
                         </select>
                     </td>
-                    <td id="item85Price">Cost</td>
+                    <td id="item85Price">0</td>
                 </tr>
             </table>
         </div>
@@ -1180,246 +1207,398 @@
                 <tr>
                     <td>Dash Board Type</td>
                     <td>
-                        <select id="item86Select" onchange="updatePrice('item86Select', 'item86Price')">
+                        <select id="item86Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SRVS</option>
                         </select>
                     </td>
-                    <td id="item86Price">Cost</td>
+                    <td id="item86Price">0</td>
                 </tr>
                 <tr>
                     <td>Wiper Motor</td>
                     <td>
-                        <select id="item87Select" onchange="updatePrice('item87Select', 'item87Price')">
+                        <select id="item87Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Volvo</option>
                             <option value="0">TVS</option>
                         </select>
                     </td>
-                    <td id="item87Price">Cost</td>
+                    <td id="item87Price">0</td>
                 </tr>
                 <tr>
                     <td>TAPE RECORDER PROVISION</td>
                     <td>
-                        <select id="item88Select" onchange="updatePrice('item88Select', 'item88Price')">
+                        <select id="item88Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item88Price">Cost</td>
+                    <td id="item88Price">0</td>
                 </tr>
                 <tr>
                     <td>Speaker</td>
                     <td>
-                        <select id="item89Select" onchange="updatePrice('item89Select', 'item89Price')">
+                        <select id="item89Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item89Price">Cost</td>
+                    <td id="item89Price">0</td>
                 </tr>
                 <tr>
                     <td>Tutors</td>
                     <td>
-                        <select id="item90Select" onchange="updatePrice('item90Select', 'item90Price')">
+                        <select id="item90Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item90Price">Cost</td>
+                    <td id="item90Price">0</td>
                 </tr>
                 <tr>
                     <td>Surround</td>
                     <td>
-                        <select id="item91Select" onchange="updatePrice('item91Select', 'item91Price')">
+                        <select id="item91Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item91Price">Cost</td>
+                    <td id="item91Price">0</td>
                 </tr>
                 <tr>
                     <td>Voice Speaker</td>
                     <td>
-                        <select id="item92Select" onchange="updatePrice('item92Select', 'item92Price')">
+                        <select id="item92Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item92Price">Cost</td>
+                    <td id="item92Price">0</td>
                 </tr>
                 <tr>
                     <td>Inverter</td>
                     <td>
-                        <select id="item93Select" onchange="updatePrice('item93Select', 'item93Price')">
+                        <select id="item93Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item93Price">Cost</td>
+                    <td id="item93Price">0</td>
                 </tr>
                 <tr>
                     <td>JBL</td>
                     <td>
-                        <select id="item94Select" onchange="updatePrice('item94Select', 'item94Price')">
+                        <select id="item94Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item94Price">Cost</td>
+                    <td id="item94Price">0</td>
                 </tr>
                 <tr>
                     <td>Laser Light</td>
                     <td>
-                        <select id="item95Select" onchange="updatePrice('item95Select', 'item95Price')">
+                        <select id="item95Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item95Price">Cost</td>
+                    <td id="item95Price">0</td>
                 </tr>
                 <tr>
                     <td>Camera Wiring</td>
                     <td>
-                        <select id="item96Select" onchange="updatePrice('item96Select', 'item96Price')">
+                        <select id="item96Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item96Price">Cost</td>
+                    <td id="item96Price">0</td>
                 </tr>
                 <tr>
                     <td>Tube Light</td>
                     <td>
-                        <select id="item97Select" onchange="updatePrice('item97Select', 'item97Price')">
+                        <select id="item97Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">LED-12</option>
                         </select>
                     </td>
-                    <td id="item97Price">Cost</td>
+                    <td id="item97Price">0</td>
                 </tr>
                 <tr>
                     <td>Foot Step Tube Light</td>
                     <td>
-                        <select id="item98Select" onchange="updatePrice('item98Select', 'item98Price')">
+                        <select id="item98Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item98Price">Cost</td>
+                    <td id="item98Price">0</td>
                 </tr>
                 <tr>
                     <td>Step Colour Tube Light</td>
                     <td>
-                        <select id="item99Select" onchange="updatePrice('item99Select', 'item99Price')">
+                        <select id="item99Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item99Price">Cost</td>
+                    <td id="item99Price">0</td>
                 </tr>
                 <tr>
                     <td>Route Board Tube Light</td>
                     <td>
-                        <select id="item100Select" onchange="updatePrice('item100Select', 'item100Price')">
+                        <select id="item100Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item100Price">Cost</td>
+                    <td id="item100Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Body Light</td>
                     <td>
-                        <select id="item101Select" onchange="updatePrice('item101Select', 'item101Price')">
+                        <select id="item101Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item101Price">Cost</td>
+                    <td id="item101Price">0</td>
                 </tr>
                 <tr>
                     <td>Top Doom Light</td>
                     <td>
-                        <select id="item102Select" onchange="updatePrice('item102Select', 'item102Price')">
+                        <select id="item102Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item102Price">Cost</td>
+                    <td id="item102Price">0</td>
                 </tr>
                 <tr>
                     <td>Front Head Light</td>
                     <td>
-                        <select id="item103Select" onchange="updatePrice('item103Select', 'item103Price')">
+                        <select id="item103Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes (As per Grill)</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item103Price">Cost</td>
+                    <td id="item103Price">0</td>
                 </tr>
                 <tr>
                     <td>Rear Danger Light</td>
                     <td>
-                        <select id="item104Select" onchange="updatePrice('item104Select', 'item104Price')">
+                        <select id="item104Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes (As per Grill)</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item104Price">Cost</td>
+                    <td id="item104Price">0</td>
                 </tr>
                 <tr>
                     <td>Hat Rack Light</td>
                     <td>
-                        <select id="item105Select" onchange="updatePrice('item105Select', 'item105Price')">
+                        <select id="item105Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item105Price">Cost</td>
+                    <td id="item105Price">0</td>
                 </tr>
                 <tr>
                     <td>Electric Calling Buzzer</td>
                     <td>
-                        <select id="item106Select" onchange="updatePrice('item106Select', 'item106Price')">
+                        <select id="item106Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item106Price">Cost</td>
+                    <td id="item106Price">0</td>
                 </tr>
                 <tr>
                     <td>Emergency Door Buzzer</td>
                     <td>
-                        <select id="item107Select" onchange="updatePrice('item107Select', 'item107Price')">
+                        <select id="item107Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
-                    <td id="item107Price">Cost</td>
+                    <td id="item107Price">0</td>
                 </tr>
             </table>
         </div>
+        <div class="form1">
+            <p>Grand Total: <span id="total">0</span></p>
+        </div>
     </form>
+
+    <script>
+        function calculateTotal() {
+            var basePriceSelect = document.getElementById('basePrice');
+            var customModelRadio = document.getElementById('custommodel');
+            var customPriceInput = document.getElementById('customPrice');
+            var totalSpan = document.getElementById('total');
+
+            var items = [
+                { selectId: 'item1Select', priceId: 'item1Price' },
+                { selectId: 'item2Select', priceId: 'item2Price' },
+                { selectId: 'item3Select', priceId: 'item3Price' },
+                { selectId: 'item4Select', priceId: 'item4Price' },
+                { selectId: 'item5Select', priceId: 'item5Price' },
+                { selectId: 'item6Select', priceId: 'item6Price' },
+                { selectId: 'item7Select', priceId: 'item7Price' },
+                { selectId: 'item8Select', priceId: 'item8Price' },
+                { selectId: 'item9Select', priceId: 'item9Price' },
+                { selectId: 'item10Select', priceId: 'item10Price' },
+                { selectId: 'item11Select', priceId: 'item11Price' },
+                { selectId: 'item12Select', priceId: 'item12Price' },
+                { selectId: 'item13Select', priceId: 'item13Price' },
+                { selectId: 'item14Select', priceId: 'item14Price' },
+                { selectId: 'item15Select', priceId: 'item15Price' },
+                { selectId: 'item16Select', priceId: 'item16Price' },
+                { selectId: 'item17Select', priceId: 'item17Price' },
+                { selectId: 'item18Select', priceId: 'item18Price' },
+                { selectId: 'item19Select', priceId: 'item19Price' },
+                { selectId: 'item20Select', priceId: 'item20Price' },
+                { selectId: 'item21Select', priceId: 'item21Price' },
+                { selectId: 'item22Select', priceId: 'item22Price' },
+                { selectId: 'item23Select', priceId: 'item23Price' },
+                { selectId: 'item24Select', priceId: 'item24Price' },
+                { selectId: 'item25Select', priceId: 'item25Price' },
+                { selectId: 'item26Select', priceId: 'item26Price' },
+                { selectId: 'item27Select', priceId: 'item27Price' },
+                { selectId: 'item28Select', priceId: 'item28Price' },
+                { selectId: 'item29Select', priceId: 'item29Price' },
+                { selectId: 'item30Select', priceId: 'item30Price' },
+                { selectId: 'item31Select', priceId: 'item31Price' },
+                { selectId: 'item32Select', priceId: 'item32Price' },
+                { selectId: 'item33Select', priceId: 'item33Price' },
+                { selectId: 'item34Select', priceId: 'item34Price' },
+                { selectId: 'item35Select', priceId: 'item35Price' },
+                { selectId: 'item36Select', priceId: 'item36Price' },
+                { selectId: 'item37Select', priceId: 'item37Price' },
+                { selectId: 'item38Select', priceId: 'item38Price' },
+                { selectId: 'item39Select', priceId: 'item39Price' },
+                { selectId: 'item40Select', priceId: 'item40Price' },
+                { selectId: 'item41Select', priceId: 'item41Price' },
+                { selectId: 'item42Select', priceId: 'item42Price' },
+                { selectId: 'item43Select', priceId: 'item43Price' },
+                { selectId: 'item44Select', priceId: 'item44Price' },
+                { selectId: 'item45Select', priceId: 'item45Price' },
+                { selectId: 'item46Select', priceId: 'item46Price' },
+                { selectId: 'item47Select', priceId: 'item47Price' },
+                { selectId: 'item48Select', priceId: 'item48Price' },
+                { selectId: 'item49Select', priceId: 'item49Price' },
+                { selectId: 'item50Select', priceId: 'item50Price' },
+                { selectId: 'item51Select', priceId: 'item51Price' },
+                { selectId: 'item52Select', priceId: 'item52Price' },
+                { selectId: 'item53Select', priceId: 'item53Price' },
+                { selectId: 'item54Select', priceId: 'item54Price' },
+                { selectId: 'item55Select', priceId: 'item55Price' },
+                { selectId: 'item56Select', priceId: 'item56Price' },
+                { selectId: 'item57Select', priceId: 'item57Price' },
+                { selectId: 'item58Select', priceId: 'item58Price' },
+                { selectId: 'item59Select', priceId: 'item59Price' },
+                { selectId: 'item60Select', priceId: 'item60Price' },
+                { selectId: 'item61Select', priceId: 'item61Price' },
+                { selectId: 'item62Select', priceId: 'item62Price' },
+                { selectId: 'item63Select', priceId: 'item63Price' },
+                { selectId: 'item64Select', priceId: 'item64Price' },
+                { selectId: 'item65Select', priceId: 'item65Price' },
+                { selectId: 'item66Select', priceId: 'item66Price' },
+                { selectId: 'item67Select', priceId: 'item67Price' },
+                { selectId: 'item68Select', priceId: 'item68Price' },
+                { selectId: 'item69Select', priceId: 'item69Price' },
+                { selectId: 'item70Select', priceId: 'item70Price' },
+                { selectId: 'item71Select', priceId: 'item71Price' },
+                { selectId: 'item72Select', priceId: 'item72Price' },
+                { selectId: 'item73Select', priceId: 'item73Price' },
+                { selectId: 'item74Select', priceId: 'item74Price' },
+                { selectId: 'item75Select', priceId: 'item75Price' },
+                { selectId: 'item76Select', priceId: 'item76Price' },
+                { selectId: 'item77Select', priceId: 'item77Price' },
+                { selectId: 'item78Select', priceId: 'item78Price' },
+                { selectId: 'item79Select', priceId: 'item79Price' },
+                { selectId: 'item80Select', priceId: 'item80Price' },
+                { selectId: 'item81Select', priceId: 'item81Price' },
+                { selectId: 'item82Select', priceId: 'item82Price' },
+                { selectId: 'item83Select', priceId: 'item83Price' },
+                { selectId: 'item84Select', priceId: 'item84Price' },
+                { selectId: 'item85Select', priceId: 'item85Price' },
+                { selectId: 'item86Select', priceId: 'item86Price' },
+                { selectId: 'item87Select', priceId: 'item87Price' },
+                { selectId: 'item88Select', priceId: 'item88Price' },
+                { selectId: 'item89Select', priceId: 'item89Price' },
+                { selectId: 'item90Select', priceId: 'item90Price' },
+                { selectId: 'item91Select', priceId: 'item91Price' },
+                { selectId: 'item92Select', priceId: 'item92Price' },
+                { selectId: 'item93Select', priceId: 'item93Price' },
+                { selectId: 'item94Select', priceId: 'item94Price' },
+                { selectId: 'item95Select', priceId: 'item95Price' },
+                { selectId: 'item96Select', priceId: 'item96Price' },
+                { selectId: 'item97Select', priceId: 'item97Price' },
+                { selectId: 'item98Select', priceId: 'item98Price' },
+                { selectId: 'item99Select', priceId: 'item99Price' },
+                { selectId: 'item100Select', priceId: 'item100Price' },
+                { selectId: 'item101Select', priceId: 'item101Price' },
+                { selectId: 'item102Select', priceId: 'item102Price' },
+                { selectId: 'item103Select', priceId: 'item103Price' },
+                { selectId: 'item104Select', priceId: 'item104Price' },
+                { selectId: 'item105Select', priceId: 'item105Price' },
+                { selectId: 'item106Select', priceId: 'item106Price' },
+                { selectId: 'item107Select', priceId: 'item107Price' },
+
+            ];
+
+            var basePrice = parseInt(basePriceSelect.value);
+            var total = 0;
+
+            for (var i = 0; i < items.length; i++) {
+                var select = document.getElementById(items[i].selectId);
+                var priceSpan = document.getElementById(items[i].priceId);
+
+                var value = parseInt(select.value);
+                var price = parseInt(select.options[select.selectedIndex].value);
+
+                priceSpan.textContent = value;
+
+                total += price;
+            }
+
+            var costDisplay = document.getElementById("costDisplay");
+            var costValue = parseFloat(costDisplay.textContent);
+
+            var grandTotal = 0;
+
+            if (customModelRadio.checked && !isNaN(customPriceInput.value)) {
+                var customInput = parseInt(customPriceInput.value);
+                grandTotal = customInput + total + costValue;
+            } else {
+                grandTotal = basePrice + total + costValue;
+            }
+
+            totalSpan.textContent = grandTotal;
+        }
+    </script>
 </body>
 
 </html>

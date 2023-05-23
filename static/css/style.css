@@ -4,48 +4,61 @@ header {
     padding: 20px;
     text-align: center;
 }
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logout-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #45a049;
+}
+
+.navbar-sectionl {
+    display: inline-block;
+    padding: 8px 16px;
+    font-weight: bold;
+    position: absolute;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-sectionr {
+    display: inline-block;
+    position: absolute;
+    font-weight: bold;
+    padding: 8px 16px;
+    right: 0;
+    top: 0;
+}
 
 .logo img {
     height: 80px;
     width: auto;
 }
-
-nav {
-    margin-top: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-/* Additional styles for customization */
-
-/* Style the logo text */
 .logo-text {
     font-size: 24px;
     font-weight: bold;
     color: #333;
-}
-
-/* Style the username and logout button */
-nav ul li.user {
-    font-weight: bold;
-}
-
-nav ul li.logout-button a {
-    color: red;
 }
 
 * {
@@ -88,6 +101,22 @@ form {
     margin: 20px;
 }
 
+.form2 {
+    position: relative;
+    background-color: #c9c9c9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(150, 147, 147, 0.1);
+    text-align: left;
+    margin: 20px;
+  }
+
+  #costDisplay {
+    position: absolute;
+    top: 57%;
+    left: 85%;
+  }
+
 label {
     display: inline-block;
     width: 100px;
@@ -98,6 +127,7 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="mobile"],
 textarea {
     display: inline-block;
