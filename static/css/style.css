@@ -4,6 +4,7 @@ header {
     padding: 20px;
     text-align: center;
 }
+
 .navbar {
     position: sticky;
     top: 0;
@@ -55,6 +56,7 @@ header {
     height: 80px;
     width: auto;
 }
+
 .logo-text {
     font-size: 24px;
     font-weight: bold;
@@ -102,20 +104,19 @@ form {
 }
 
 .form2 {
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #c9c9c9;
     border-radius: 5px;
-    padding: 20px;
     box-shadow: 0 2px 5px rgba(150, 147, 147, 0.1);
     text-align: left;
     margin: 20px;
-  }
+}
 
-  #costDisplay {
-    position: absolute;
-    top: 57%;
-    left: 85%;
-  }
+#costDisplay {
+    margin-left: auto;
+}
 
 label {
     display: inline-block;
@@ -169,31 +170,32 @@ input[type="submit"]:hover {
 table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  th, td {
+}
+
+th,
+td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
     text-align: left;
-  }
-  
-  /* Styling for the table header */
-  th {
+}
+
+/* Styling for the table header */
+th {
     background-color: #f2f2f2;
-  }
-  
-  /* Styling for the dropdown select element */
-  select {
+}
+
+/* Styling for the dropdown select element */
+select {
     padding: 5px;
     border-radius: 5px;
-  }
-  
-  /* Styling for the price column */
-  td.price {
+}
+
+/* Styling for the price column */
+td.price {
     font-weight: bold;
     color: green;
-  }
-  
+}
+
 
 /* Responsive styles for smaller screens */
 @media screen and (max-width: 600px) {
