@@ -3,7 +3,9 @@ app = Flask(__name__)
 
 
 users = {}
-users["admin"] = "admin"
+users["MD"] = "Rolex@666"
+users["Manager"] = "DVN@1972"
+
 app = Flask(__name__)
 app.secret_key = 'qwertyuiop1234567890'
 global df

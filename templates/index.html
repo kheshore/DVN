@@ -32,6 +32,14 @@
             <input type="text" id="name" name="name" required>
             <label for="mobile">Mobile No:</label>
             <input type="mobile" id="mobile" name="mobile" required>
+            <br>
+            <!-- Chassis No -->
+            <label for="chassisno">Chassis No:</label>
+            <input type="text" id="chassisno" name="chassisno" required>
+
+            <!-- Engine No -->
+            <label for="Engineno">Engine no:</label>
+            <input type="text" id="engineno" name="engineno" required>
         </div>
         <!--Body Info-->
         <div class=form1>
@@ -89,15 +97,6 @@
                     <input type="text" id="custombodyType" placeholder="Custom Body Type">
                 </label>
             </div>
-
-            <!-- Chassis No -->
-            <label for="chassisno">Chassis No:</label>
-            <input type="text" id="chassisno" name="chassisno" required>
-
-            <!-- Engine No -->
-            <label for="Engineno">Engine no:</label>
-            <input type="text" id="engineno" name="engineno" required>
-
         </div>
         <!--Model Info-->
         <div class="form1">
@@ -158,25 +157,46 @@
         <div class=form1>
             <h3>Structure</h3>
             <table>
-
                 <tr>
-                    <td>W.B<span id="bp"></span></td>
+                    <td>W.B</td>
                     <td>
-                        <select id="item1Select" onchange=" calculateTotal();">
-                            <option value="0">Select</option>
-                            <option value="20">222"</option>
-                            <option value="30">210"</option>
+                        <select id="item1Select" onchange="handleCustomOption1(); calculateTotal();">                            <option value="0">Select</option>
+                            <option value="0">222"</option>
+                            <option value="0">210"</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
+                    <script>
+                        function handleCustomOption1() {
+                            var itemSelect = document.getElementById("item1Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom W.B:");
+                                var customValue = prompt("Enter a value for the custom W.B:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }   
+                    </script>    
                     <td id="item1Price">0</td>
                 </tr>
                 <tr>
-                    <td>Body Width<span id="selectedNaa1"></span></td>
+                    <td>Body Width</td>
                     <td>
                         <select id="item2Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="50">8'6"</option>
-                            <option value="60">8'8"</option>
+                            <option value="0">8'6"</option>
+                            <option value="0">8'8"</option>
                         </select>
                     </td>
                     <td id="item2Price">0</td>
@@ -251,12 +271,51 @@
                         <select id="item9Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">3 step, STD</option>
-                            <option value="0">3 step, JK</option>
                             <option value="0">3 step, Balasakthi</option>
                         </select>
                     </td>
                     <td id="item9Price">0</td>
                 </tr>
+                <tr>
+                    <td>JK Doors</td>
+                    <td>
+                        <select id="item108Select" onchange="handleCustomOption108(); calculateTotal();">
+                            <option value="0">Select</option>
+                            <option value="0">No</option>
+                            <option value="0">Manual X 1</option>
+                            <option value="0">Manual X 2</option>
+                            <option value="0">Manual X 3</option>
+                            <option value="8500">Automatic X 1</option>
+                            <option value="17000">Automatic X 2</option>
+                            <option value="25500">Automatic X 3</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </td>
+                    <td id="item108Price">0</td>
+                    <script>
+                        function handleCustomOption108() {
+                            var itemSelect = document.getElementById("item108Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
+                </tr>
+                
                 <tr>
                     <td>3 Pass Seat Width</td>
                     <td>
@@ -280,13 +339,37 @@
                 <tr>
                     <td>Side Body Sheet</td>
                     <td>
-                        <select id="item12Select" onchange="calculateTotal();">
+                        <select id="item12Select" onchange="handleCustomOption12(); calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">GI</option>
-                            <option value="0">Aluminum</option>
+                            <option value="0">Aluminum Top & Bottom</option>
+                            <option value="0">Aluminum Bottom</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
                     <td id="item12Price">0</td>
+                    <script>
+                        function handleCustomOption12() {
+                            var itemSelect = document.getElementById("item12Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Front Glass</td>
@@ -306,7 +389,7 @@
                     <td>
                         <select id="item14Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Job No.</option>
+                            <option value="0">Standard</option>
                             <option value="0">As per photo</option>
                         </select>
                     </td>
@@ -318,6 +401,7 @@
                         <select id="item15Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Mazda</option>
+                            <option value="0">Railway Type</option>
                         </select>
                     </td>
                     <td id="item15Price">0</td>
@@ -325,12 +409,35 @@
                 <tr>
                     <td>Body Angle Type</td>
                     <td>
-                        <select id="item16Select" onchange="calculateTotal();">
+                        <select id="item16Select" onchange="handleCustomOption16(); calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">BSBS</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
                     <td id="item16Price">0</td>
+                    <script>
+                        function handleCustomOption16() {
+                            var itemSelect = document.getElementById("item16Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Engine Platform</td>
@@ -338,6 +445,7 @@
                         <select id="item17Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">OE</option>
+                            <option value="0">Angle Type</option>
                         </select>
                     </td>
                     <td id="item17Price">0</td>
@@ -415,7 +523,9 @@
                         <select id="item24Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">12mm plywood</option>
+                            <option value="5000">15mm plywood</option>
                             <option value="18000">12mm plywood + matt</option>
+                            <option value="23000">15mm plywood + matt</option>
                             <option value="50000">3mm Aluminum chequard sheet</option>
                         </select>
                     </td>
@@ -426,7 +536,7 @@
                     <td>
                         <select id="item25Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="8000">ACP</option>
+                            <option value="0">ACP</option>
                             <option value="0">Mica</option>
                         </select>
                     </td>
@@ -441,12 +551,35 @@
                 <tr>
                     <td>Ceiling Type</td>
                     <td>
-                        <select id="item26Select" onchange="calculateTotal();">
+                        <select id="item26Select" onchange="handleCustomOption26(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">1.5"</option>
+                            <option value="0">1.5" Step</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
                     <td id="item26Price">0</td>
+                    <script>
+                        function handleCustomOption26() {
+                            var itemSelect = document.getElementById("item26Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Voice Speaker</td>
@@ -493,7 +626,7 @@
                     <td>
                         <select id="item30Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Job No.</option>
+                            <option value="0">Standard</option>
                             <option value="0">As per photo</option>
                         </select>
                     </td>
@@ -504,7 +637,7 @@
                     <td>
                         <select id="item31Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Yes</option>
+                            <option value="4500">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
@@ -525,20 +658,42 @@
                 <tr>
                     <td>Dash Board Type</td>
                     <td>
-                        <!-- Add appropriate options for Dash Board Type -->
-                        <select id="item33Select" onchange="calculateTotal();">
+                        <select id="item33Select" onchange="handleCustomOption33(); calculateTotal();">
                             <option value="0">Select</option>
-                            <!-- Add your options here -->
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
                     <td id="item33Price">0</td>
+                    <script>
+                        function handleCustomOption33() {
+                            var itemSelect = document.getElementById("item33Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Lifting Door</td>
                     <td>
                         <select id="item34Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Yes</option>
+                            <option value="0">Yes (Standard)</option>
+                            <option value="6000">Yes (Automatic)</option>
                             <option value="0">No</option>
                         </select>
                     </td>
@@ -553,13 +708,38 @@
                 <tr>
                     <td>Body Sheet</td>
                     <td>
-                        <select id="item35Select" onchange="calculateTotal();">
+                        <select id="item35Select" onchange="handleCustomOption35(); calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">GI</option>
-                            <option value="20000">Aluminum</option>
+                            <option value="13000">Aluminum Top</option>
+                            <option value="20000">Aluminum Bottom</option>
+                            <option value="33000">Aluminum Top & Bottom</option>
+                            <option value="custom">Custom</option>
                         </select>
                     </td>
                     <td id="item35Price">0</td>
+                    <script>
+                        function handleCustomOption35() {
+                            var itemSelect = document.getElementById("item35Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Vangu Type</td>
@@ -664,13 +844,39 @@
                 <tr>
                     <td>Top Ventilator</td>
                     <td>
-                        <select id="item45Select" onchange="calculateTotal();">
+                        <select id="item45Select" onchange="handleCustomOption45();calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Yes</option>
+                            <option value="4000">X 1</option>
+                            <option value="8000">X 2</option>
+                            <option value="12000">X 3</option>
+                            <option value="16000">X 4</option>
+                            <option value="custom">Custom</option>
                             <option value="0">No</option>
                         </select>
                     </td>
                     <td id="item45Price">0</td>
+                    <script>
+                        function handleCustomOption45() {
+                            var itemSelect = document.getElementById("item45Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
             </table>
         </div>
@@ -723,6 +929,17 @@
                     <td id="item49Price">0</td>
                 </tr>
                 <tr>
+                    <td>Rear Dickey Right Door</td>
+                    <td>
+                        <select id="item109Select" onchange="calculateTotal();">
+                            <option value="0">Select</option>
+                            <option value="5500">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                    <td id="item109Price">0</td>
+                </tr>
+                <tr>
                     <td>Battery Box Door</td>
                     <td>
                         <select id="item50Select" onchange="calculateTotal();">
@@ -738,7 +955,7 @@
                     <td>
                         <select id="item51Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="7000">Yes</option>
+                            <option value="8000">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
@@ -766,6 +983,7 @@
                         <select id="item53Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">Mazda</option>
+                            <option value="25000">Railway Type </option>
                         </select>
                     </td>
                     <td id="item53Price">0</td>
@@ -822,13 +1040,35 @@
                 <tr>
                     <td>Mica Design</td>
                     <td>
-                        <select id="item58Select" onchange="calculateTotal();">
+                        <select id="item58Select" onchange="handleCustomOption58(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Yes</option>
+                            <option value="custom">Custom</option>
                             <option value="0">No</option>
                         </select>
                     </td>
                     <td id="item58Price">0</td>
+                    <script>
+                        function handleCustomOption58() {
+                            var itemSelect = document.getElementById("item58Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Seat Angle Mica & Flooring</td>
@@ -836,6 +1076,7 @@
                         <select id="item59Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
+                            <option value="0">Mica</option>
                         </select>
                     </td>
                     <td id="item59Price">0</td>
@@ -865,29 +1106,45 @@
             </table>
         </div>
         <!--Paint Info-->
-        <div class="form1">
-            <h3>Paint</h3>
-            <div class="form2">
-                <label for="Painting">Painting Cost:</label>
-                <input type="number" id="item108Price" name="Painting" oninput="displayCost()" required>
-                <span id="costDisplay">0</span>
-            </div>
+        <div class=form1>
+            <h3>Painting</h3>
+            <table>
+                <tr>
+                    <td>
+                        <select id="item110Select" onchange="handleCustomOption110(); calculateTotal();">
+                            <option value="0">Select</option>
+                            <option value="0">PU</option>
+                            <option value="0">Non Metallic</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </td>
+                    <td id="item110Price">0</td>
+                    <script>
+                        function handleCustomOption110() {
+                            var itemSelect = document.getElementById("item110Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter a label for the custom option:");
+                                var customValue = prompt("Enter a value for the custom option:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+
+                    </script>
+                </tr>
+            </table>
         </div>
-
-        <script>
-            function displayCost() {
-                var costInput = document.getElementById("item108Price");
-                var costDisplay = document.getElementById("costDisplay");
-                var costValue = costInput.value;
-
-                if (costValue === '') {
-                    costValue = 0;
-                }
-
-                costDisplay.textContent = costValue;
-                calculateTotal();
-            }
-        </script>
         <!--Fitting Info-->
         <div class=form1>
             <h3>Fitting</h3>
@@ -901,7 +1158,7 @@
                             <option value="0">School Type</option>
                             <option value="0">Jeeva "S" bend</option>
                             <option value="45000">DVN</option>
-                            <option value="35000">SK</option>
+                            <option value="38000">SK</option>
                         </select>
                     </td>
                     <td id="item62Price">0</td>
@@ -931,113 +1188,194 @@
                 <tr>
                     <td>Right 3 Seater</td>
                     <td>
-                        <select id="item65Select" onchange="calculateTotal();">
+                        <select id="item65Select" onchange="handleCustomOption65(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
-                            <option value="0">2</option>
-                            <option value="0">3</option>
-                            <option value="0">4</option>
-                            <option value="0">5</option>
-                            <option value="0">6</option>
-                            <option value="0">7</option>
-                            <option value="0">8</option>
-                            <option value="0">9</option>
-                            <option value="0">10</option>
+                            <option value="custom">Count</option>
                         </select>
                     </td>
                     <td id="item65Price">0</td>
+                    <script>
+                        function handleCustomOption65() {
+                            var itemSelect = document.getElementById("item65Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter the Count:");
+                                var customValue = prompt("Enter the price:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Right 2+1 Seater</td>
                     <td>
-                        <select id="item66Select" onchange="calculateTotal();">
+                        <select id="item66Select" onchange="handleCustomOption66(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
-                            <option value="0">2</option>
-                            <option value="0">3</option>
-                            <option value="0">4</option>
-                            <option value="0">5</option>
-                            <option value="0">6</option>
-                            <option value="0">7</option>
-                            <option value="0">8</option>
-                            <option value="0">9</option>
-                            <option value="0">10</option>
+                            <option value="custom">Count</option>
                         </select>
                     </td>
                     <td id="item66Price">0</td>
+                    <script>
+                        function handleCustomOption65() {
+                            var itemSelect = document.getElementById("item66Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter the Count:");
+                                var customValue = prompt("Enter the price:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Left 2 Seater</td>
                     <td>
-                        <select id="item67Select" onchange="calculateTotal();">
+                        <select id="item67Select" onchange="handleCustomOption67(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
-                            <option value="0">2</option>
-                            <option value="0">3</option>
-                            <option value="0">4</option>
-                            <option value="0">5</option>
-                            <option value="0">6</option>
-                            <option value="0">7</option>
-                            <option value="0">8</option>
-                            <option value="0">9</option>
-                            <option value="0">10</option>
+                            <option value="custom">Count</option>
                         </select>
                     </td>
                     <td id="item67Price">0</td>
+                    <script>
+                        function handleCustomOption67() {
+                            var itemSelect = document.getElementById("item67Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter the Count:");
+                                var customValue = prompt("Enter the price:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Platform 2 Seater</td>
-                    <td>
-                        <select id="item68Select" onchange="calculateTotal();">
-                            <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
-                            <option value="0">2</option>
-                            <option value="0">3</option>
-                            <option value="0">4</option>
-                            <option value="0">5</option>
-                            <option value="0">6</option>
-                            <option value="0">7</option>
-                            <option value="0">8</option>
-                            <option value="0">9</option>
-                            <option value="0">10</option>
-                        </select>
-                    </td>
-                    <td id="item68Price">0</td>
+                        <td>
+                            <select id="item68Select" onchange="handleCustomOption68(); calculateTotal();">
+                                <option value="0">Select</option>
+                                <option value="custom">Count</option>
+                            </select>
+                        </td>
+                        <td id="item68Price">0</td>
+                        <script>
+                            function handleCustomOption68() {
+                                var itemSelect = document.getElementById("item68Select");
+                                var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+    
+                                if (optionValue === "custom") {
+                                    var customLabel = prompt("Enter the Count:");
+                                    var customValue = prompt("Enter the price:");
+    
+                                    if (customLabel && customValue) {
+                                        var newOption = document.createElement("option");
+                                        newOption.text = customLabel;
+                                        newOption.value = customValue;
+    
+                                        itemSelect.add(newOption);
+                                        itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                    } else {
+                                        itemSelect.selectedIndex = 0;
+                                    }
+                                }
+                            }
+                        </script>
                 </tr>
                 <tr>
                     <td>Platform 1+1 Seater</td>
                     <td>
-                        <select id="item69Select" onchange="calculateTotal();">
+                        <select id="item69Select" onchange="handleCustomOption69(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
-                            <option value="0">2</option>
-                            <option value="0">3</option>
-                            <option value="0">4</option>
-                            <option value="0">5</option>
-                            <option value="0">6</option>
-                            <option value="0">7</option>
-                            <option value="0">8</option>
-                            <option value="0">9</option>
-                            <option value="0">10</option>
+                            <option value="custom">Count</option>
                         </select>
                     </td>
                     <td id="item69Price">0</td>
+                    <script>
+                        function handleCustomOption69() {
+                            var itemSelect = document.getElementById("item69Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter the Count:");
+                                var customValue = prompt("Enter the price:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Rear 6 Seater</td>
                     <td>
-                        <select id="item70Select" onchange="calculateTotal();">
+                        <select id="item70Select" onchange="handleCustomOption70(); calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">0</option>
-                            <option value="0">1</option>
+                            <option value="custom">Count</option>
                         </select>
                     </td>
                     <td id="item70Price">0</td>
+                    <script>
+                        function handleCustomOption70() {
+                            var itemSelect = document.getElementById("item70Select");
+                            var optionValue = itemSelect.options[itemSelect.selectedIndex].value;
+
+                            if (optionValue === "custom") {
+                                var customLabel = prompt("Enter the Count:");
+                                var customValue = prompt("Enter the price:");
+
+                                if (customLabel && customValue) {
+                                    var newOption = document.createElement("option");
+                                    newOption.text = customLabel;
+                                    newOption.value = customValue;
+
+                                    itemSelect.add(newOption);
+                                    itemSelect.selectedIndex = itemSelect.options.length - 1;
+                                } else {
+                                    itemSelect.selectedIndex = 0;
+                                }
+                            }
+                        }
+                    </script>
                 </tr>
                 <tr>
                     <td>Backrest</td>
@@ -1045,6 +1383,7 @@
                         <select id="item71Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
                             <option value="0">SS</option>
+                            <option value="0">Mica</option>
                         </select>
                     </td>
                     <td id="item71Price">0</td>
@@ -1078,9 +1417,24 @@
                             <option value="0">Select</option>
                             <option value="0">3D</option>
                             <option value="0">4D</option>
+                            <option value="0">Everlast</option>
+                            <option value="0">Rexine</option>
                         </select>
                     </td>
                     <td id="item74Price">0</td>
+                </tr>
+                <tr>
+                    <td>Screen Cloth</td>
+                    <td>
+                        <select id="item111Select" onchange="calculateTotal();">
+                            <option value="0">Select</option>
+                            <option value="0">Top</option>
+                            <option value="4500">Bottom</option>
+                            <option value="4500">Top & Bottom</option>
+                            <option value="0">Nil</option>
+                        </select>
+                    </td>
+                    <td id="item111Price">0</td>
                 </tr>
                 <tr>
                     <td>Side Body Beading</td>
@@ -1099,6 +1453,7 @@
                             <option value="0">Select</option>
                             <option value="0">Left Side</option>
                             <option value="0">Right Side</option>
+                            <option value="0">Left & Right Side</option>
                             <option value="8000">Travels Type</option>
                         </select>
                     </td>
@@ -1417,7 +1772,7 @@
                     <td>
                         <select id="item105Select" onchange="calculateTotal();">
                             <option value="0">Select</option>
-                            <option value="0">Yes</option>
+                            <option value="4500">Yes</option>
                             <option value="0">No</option>
                         </select>
                     </td>
@@ -1444,6 +1799,17 @@
                         </select>
                     </td>
                     <td id="item107Price">0</td>
+                </tr>
+                <tr>
+                    <td>Cooperation light</td>
+                    <td>
+                        <select id="item112Select" onchange="calculateTotal();">
+                            <option value="0">Select</option>
+                            <option value="9000">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </td>
+                    <td id="item112Price">0</td>
                 </tr>
             </table>
         </div>
@@ -1564,7 +1930,11 @@
                 { selectId: 'item105Select', priceId: 'item105Price' },
                 { selectId: 'item106Select', priceId: 'item106Price' },
                 { selectId: 'item107Select', priceId: 'item107Price' },
-
+                { selectId: 'item108Select', priceId: 'item108Price' },
+                { selectId: 'item109Select', priceId: 'item109Price' },
+                { selectId: 'item110Select', priceId: 'item110Price' },
+                { selectId: 'item111Select', priceId: 'item111Price' },
+                { selectId: 'item112Select', priceId: 'item112Price' },
             ];
 
             var basePrice = parseInt(basePriceSelect.value);
@@ -1582,16 +1952,13 @@
                 total += price;
             }
 
-            var costDisplay = document.getElementById("costDisplay");
-            var costValue = parseFloat(costDisplay.textContent);
-
             var grandTotal = 0;
 
             if (customModelRadio.checked && !isNaN(customPriceInput.value)) {
                 var customInput = parseInt(customPriceInput.value);
-                grandTotal = customInput + total + costValue;
+                grandTotal = customInput + total;
             } else {
-                grandTotal = basePrice + total + costValue;
+                grandTotal = basePrice + total;
             }
 
             totalSpan.textContent = grandTotal;
